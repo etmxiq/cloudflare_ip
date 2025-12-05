@@ -2,8 +2,9 @@ export default {
   async fetch(request) {
     const origin = request.headers.get("Origin");
 
+    // 允许跨域访问的站点
     const allowed = [
-      "http://mvp.us.kg",   // 允许的网站（你可以加更多）
+      "http://mvp.us.kg",
       "https://mvp.us.kg",
     ];
 
@@ -15,31 +16,25 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
+    // 处理 OPTIONS 预检
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
     }
 
+    // 获取 IP
     const ip =
       request.headers.get("cf-connecting-ip") ||
       request.headers.get("x-forwarded-for") ||
       "unknown";
 
-    const cf = request.cf || {};
-
     return new Response(
-      JSON.stringify(
-        {
-          ip,
-          country: cf.country,
-          city: cf.city,
-          colo: cf.colo,
-        },
-        null,
-        2
-      ),
+      JSON.stringify({ ip: ip }),
       {
         status: 200,
-        headers: corsHeaders,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       }
     );
   },
