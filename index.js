@@ -5,6 +5,7 @@ export default {
     // 允许跨域访问的站点
     const allowed = [
       "https://myipdns.com",
+       "https://www.myipdns.com",
          ];
 
     const allowOrigin = allowed.includes(origin) ? origin : "";
