@@ -4,9 +4,8 @@ export default {
 
     // 允许跨域访问的站点
     const allowed = [
-      "http://mvp.us.kg",
-      "https://mvp.us.kg",
-    ];
+      "https://myipdns.com",
+         ];
 
     const allowOrigin = allowed.includes(origin) ? origin : "";
 
